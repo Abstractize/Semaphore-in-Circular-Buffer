@@ -8,14 +8,19 @@ do
     esac
 done
 
+if [ -d "./$PROGRAM_NAME" ]; then
+ cd "./$PROGRAM_NAME"
+fi
+
 if $build; then
     echo "Compiling $PROGRAM_NAME..."
-    cd "./$PROGRAM_NAME/build"
+    mkdir -p "./build"
+    cd "./build"
     cmake ..
     make
     PATH="$PWD/$PROGRAM_NAME" 
 else
-    PATH="./$PROGRAM_NAME/build/$PROGRAM_NAME"
+    PATH="./build/$PROGRAM_NAME"
 fi
     
 "$PATH"
