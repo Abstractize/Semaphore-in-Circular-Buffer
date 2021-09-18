@@ -18,9 +18,9 @@ if $build; then
     cd "./build"
     cmake ..
     make
-    PATH="$PWD/$PROGRAM_NAME" 
+    PATH="$PWD/$PROGRAM_NAME"
+    /bin/mv "$PATH" ../../build/ 
 else
     PATH="./build/$PROGRAM_NAME"
+    /bin/mv "$PATH" ../build/
 fi
-    
-"$PATH"

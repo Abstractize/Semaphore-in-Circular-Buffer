@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
       return -1;
    }
 
-   printf("Reading '%s'", block);
+   printf("Reading '%s'\n", block);
 
    detach_memory_block(block);
 }

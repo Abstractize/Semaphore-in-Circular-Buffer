@@ -10,3 +10,7 @@ wait
 echo "Finisher: "
 ./Finisher/run.sh "$@"
 wait
+
+cd ./build
+./run.sh
+wait

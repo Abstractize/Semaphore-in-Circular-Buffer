@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     }
 
     char *to_write = "Hello World!";
-    printf("Writing '%s'", to_write);
+    printf("Writing '%s'\n", to_write);
     strncpy(block, to_write, BLOCK_SIZE);
 
     detach_memory_block(block);

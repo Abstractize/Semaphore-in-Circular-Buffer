@@ -22,5 +22,9 @@ bool destroy_memory_block(char *name)
 
     if(shared_blocked_id == IPC_RESULT_ERROR)
         return NULL;
-    return (shmctl(shared_blocked_id, IPC_RMID, NULL) != IPC_RESULT_ERROR);
+
+    bool result = (shmctl(shared_blocked_id, IPC_RMID, NULL) != IPC_RESULT_ERROR);
+    result = result && (remove(name) == 0);
+
+    return result;
 }
