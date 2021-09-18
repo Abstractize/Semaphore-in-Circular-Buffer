@@ -6,12 +6,17 @@
 
 int main(int argc, char *argv[])
 {
-   /*if(argc != 1)
-   {
-      printf("usage - %s //no args", argv[0]);
-      return -1;
-   }*/
-   char *buffer_name = "buffer";
+   char *buffer_name = NULL;
+   for (int i = 0; i < argc; ++i)
+      if (!strcmp(argv[i], "-n"))
+         buffer_name = argv[++i];
+
+    if (buffer_name == NULL)
+    {
+        printf("ERROR: couldn't get Block: %s\n", buffer_name);
+        return -1;
+    }
+
    char *block = attach_memory_block(buffer_name, BLOCK_SIZE);
    if (block == NULL)
    {

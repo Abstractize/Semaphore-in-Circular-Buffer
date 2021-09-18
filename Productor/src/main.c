@@ -7,13 +7,18 @@
 
 int main(int argc, char *argv[])
 {
-    /*if (argc != 2)
-    {
-        printf("usage - %s [stuff to write]", argv[0]);
-        return -1;
-    }*/
+    char *buffer_name = NULL;
+    for (int i = 0; i < argc; ++i)
+        if (!strcmp(argv[i], "-n"))
+            buffer_name = argv[++i];
 
-    char *buffer_name = "buffer";
+    if (buffer_name == NULL)
+    {
+        printf("ERROR: couldn't get Block: %s\n", buffer_name);
+        return -1;
+    }
+
+
     char *block = attach_memory_block(buffer_name, BLOCK_SIZE);
     if (block == NULL)
     {
