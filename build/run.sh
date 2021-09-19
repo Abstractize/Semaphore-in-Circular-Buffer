@@ -1,7 +1,8 @@
-while getopts n: flag
+while getopts n:s: flag
 do
     case "${flag}" in
         n) name=${OPTARG};;
+        s) size=${OPTARG};;
     esac
 done
 
@@ -11,17 +12,14 @@ fi
 
 echo ""
 echo "Initiator: "
-./Initiator -n "$name"
+./Initiator -n "$name" -s "$size"
 echo ""
 wait
-echo "Productor: "
-./Productor -n "$name"
+echo "Productor and Consumer: "
+./Productor -n "$name" & ./Consumer -n "$name"
 echo ""
 wait
-echo "Consumer: "
-./Consumer -n "$name"
-echo ""
-wait
+
 echo "Finisher: "
 ./Finisher -n "$name"
 wait
