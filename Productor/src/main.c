@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
 
     printf("Got %s in PID %i and instance Productor %i\n", info_block->name, getpid(), instance_id);
 
-    int mn_value = 0;
     while (!info_block->stop)
     {
         int random_prob = ((rand() % (10000/prod_time)) + 1);
@@ -48,7 +47,8 @@ int main(int argc, char *argv[])
         
         sleep(t);
 
-        const int magic_number = mn_value % 6;
+        const int posibilities = 6;
+        const int magic_number = random() %  (posibilities + 1);
 
         data_t value = {
             .key = magic_number,
@@ -63,7 +63,6 @@ int main(int argc, char *argv[])
             print_data(response, "Productor", instance_id, t);
         else
             break;
-        mn_value++;
     }
 
     --info_block->productors;

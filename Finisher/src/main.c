@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
     initialization_data_t *info_block = attach_memory_info_block(buffer_name, BLOCK_SIZE);
     
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);
+    sem_destroy(&info_block->sems.circular_buffer_empty);
+    sem_destroy(&info_block->sems.circular_buffer_full);
     
     detach_memory_info_block(info_block);
 

@@ -37,17 +37,21 @@ int main(int argc, char *argv[])
    printf("Got %s in PID %i and instance Consumer %i\n", info_block->name, p_id, instance_id);
 
    int key = 8;
+   double lambda = 1 / prod_time;
 
    while (key != (p_id % 6))
    {
-      int random_prob = ((rand() % (10000 / prod_time)) + 1);
+      int lower_limit = lambda / 2 * 10000;
+      int greater_limit = lambda * 10000;
+
+      int random_prob = (rand() % (lower_limit + greater_limit) + 1);
       double x = (double)random_prob / 10000;
       x = x * prod_time;
       double t = -log(x) * prod_time;
 
       sleep(t);
       data_t *var = pop_data(&info_block->buffer, buffer_name, info_block->sems);
-      if(var != NULL)
+      if (var != NULL)
          print_data(var, "Consumer", instance_id, t);
       else
          printf("Could not POP value\n");

@@ -33,6 +33,7 @@ typedef struct
 {
     sem_t circular_buffer_usage_sem;
     sem_t circular_buffer_full;
+    sem_t circular_buffer_empty;
 } buffer_sems_t;
 typedef struct
 {
