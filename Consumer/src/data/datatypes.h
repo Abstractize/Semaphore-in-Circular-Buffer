@@ -10,14 +10,16 @@
 
 typedef struct
 {
+    int key;
     int index;
     time_t current_time;
     int consumers;
     int productors;
+    int productor_id;
     int data;
 } data_t;
 
-void print_data(data_t * data, char * instance_name, int instance_id);
+void print_data(data_t * data, char * instance_name, int instance_id, double t);
 
 typedef struct
 {
@@ -39,8 +41,8 @@ typedef struct
     int size;
     int consumers;
     int productors;
-    int time_prom;
     circular_buffer_t buffer;
+    bool stop;
 } initialization_data_t;
 
 #endif

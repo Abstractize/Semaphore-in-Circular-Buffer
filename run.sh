@@ -12,5 +12,5 @@ echo "Finisher: "
 wait
 
 cd ./build
-./run.sh -n 'other_buffer' -s '10'
+./run.sh -n 'other_buffer' -s '10' -t '3'
 wait

@@ -22,12 +22,15 @@ data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name, buffer_s
         return NULL;
 
     int i = c->head;
+    data.index = i;
+    
     data_t *buffer_val = attach_memory_data_block(buffer_name, DATA_BLOCK_SIZE, i + 1);
     if (buffer_val == NULL)
         return NULL;
 
     *buffer_val = data;
     c->head = next;
+
     data_t *response = (data_t *)malloc(sizeof(data_t)); 
     *response = *buffer_val;
     detach_memory_data_block(buffer_val);
