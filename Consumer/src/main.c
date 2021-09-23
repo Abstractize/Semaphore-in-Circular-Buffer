@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
    printf("Got %s\n", info_block->name);
    for (int i = 0; i < info_block->size; ++i)
    {
-      data_t *var = pop_data(&info_block->buffer, buffer_name);
+      data_t *var = pop_data(&info_block->buffer, buffer_name, info_block->sems);
       if (var == NULL)
          printf("value %i: not popped\n", i);
       else

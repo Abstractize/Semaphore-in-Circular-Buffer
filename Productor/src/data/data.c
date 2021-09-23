@@ -8,8 +8,9 @@
 
 #define DATA_BLOCK_SIZE sizeof(data_t)
 
-data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name)
+data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name, buffer_sems_t sems)
 {
+    sem_wait(&sems.circular_buffer_usage_sem);
     int next = c->head + 1;
 
     const bool is_gt_size = next >= c->maxlen;
@@ -30,11 +31,13 @@ data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name)
     data_t *response = (data_t *)malloc(sizeof(data_t)); 
     *response = *buffer_val;
     detach_memory_data_block(buffer_val);
+    sem_post(&sems.circular_buffer_usage_sem);
     return response;
 }
 
-data_t *pop_data(circular_buffer_t *c, char *buffer_name)
+data_t *pop_data(circular_buffer_t *c, char *buffer_name, buffer_sems_t sems)
 {
+    sem_wait(&sems.circular_buffer_usage_sem);
     const bool is_empty = c->head == c->tail;
     if (is_empty)
         return NULL;
@@ -52,5 +55,7 @@ data_t *pop_data(circular_buffer_t *c, char *buffer_name)
     
     c->tail = next;
     detach_memory_data_block(buffer_val);
+
+    sem_post(&sems.circular_buffer_usage_sem);
     return data;
 }

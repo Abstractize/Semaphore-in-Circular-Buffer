@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         data_t value = {
             .data = ((i + 1) * 5)
         };
-        data_t *response = push_data(&info_block->buffer, value, buffer_name);
+        data_t *response = push_data(&info_block->buffer, value, buffer_name, info_block->sems);
         if (response == NULL)
             printf("Error: 'NPI'\n");
             

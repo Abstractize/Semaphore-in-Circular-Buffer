@@ -27,7 +27,6 @@ typedef struct
 typedef struct
 {
     char name[BIG_ENOUGH];
-    sem_t circular_buffer_sem;
     buffer_sems_t sems;
     int size;
     int consumers;

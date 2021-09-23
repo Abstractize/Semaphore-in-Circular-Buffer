@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
 #include "datatypes.h"
 #include "../memory/memory.h"
 
@@ -33,7 +36,7 @@ int push_data(circular_buffer_t *c, int data, char *buffer_name, buffer_sems_t s
     return 0;
 }
 
-int pop_data(circular_buffer_t *c, int *data, char *buffer_name)
+int pop_data(circular_buffer_t *c, int *data, char *buffer_name, buffer_sems_t sems)
 {
 
     sem_wait(&sems.circular_buffer_usage_sem);

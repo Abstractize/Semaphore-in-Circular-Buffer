@@ -16,8 +16,7 @@ echo "Initiator: "
 echo ""
 wait
 echo "Productor and Consumer: "
-./Productor -n "$name"
-./Consumer -n "$name"
+./Productor -n "$name" & ./Consumer -n "$name" & ./Consumer -n "$name" & ./Productor -n "$name"
 echo ""
 wait
 

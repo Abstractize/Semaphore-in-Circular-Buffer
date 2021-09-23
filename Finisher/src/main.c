@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <semaphore.h>
 #include "memory/memory.h"
 #include "data/datatypes.h"
-#include <semaphore.h>
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +18,10 @@ int main(int argc, char *argv[])
     }
 
     initialization_data_t *info_block = attach_memory_info_block(buffer_name, BLOCK_SIZE);
+    
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);
+    
+    detach_memory_info_block(info_block);
 
     if (destroy_memory_block(buffer_name))
         printf("Destroyed Block: %s\n", buffer_name);

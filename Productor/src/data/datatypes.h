@@ -18,13 +18,20 @@ typedef struct
     int maxlen;
 } circular_buffer_t;
 
+
+typedef struct
+{
+    sem_t circular_buffer_usage_sem;
+    sem_t circular_buffer_full;
+} buffer_sems_t;
 typedef struct
 {
     char name[BIG_ENOUGH];
-    sem_t sem;
+    buffer_sems_t sems;
     int size;
     int consumers;
     int productors;
+    int time_prom;
     circular_buffer_t buffer;
 } initialization_data_t;
 
