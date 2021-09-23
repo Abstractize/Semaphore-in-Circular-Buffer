@@ -1,6 +1,6 @@
 const int ledQuantity = 10;
-const int length = 11;
-
+const int length = 11; // Change this to Port value
+const int delayValue = 200;
 struct Data
 {
     bool hasData = false;
@@ -11,6 +11,7 @@ Data data[length];
 
 void setup()
 {
+  	Serial.begin(9600);
     for (int i = 0; i < length; i++)
     {
         if (i >= ledQuantity)
@@ -20,7 +21,7 @@ void setup()
         }
         else
         {
-            data[i] = {false, i};
+            data[i].pin = i;
             pinMode(i, OUTPUT);
         }
     }
@@ -29,9 +30,9 @@ void setup()
 void loop()
 {
     getData();
-    delay(200);
+    delay(delayValue);
     applyData();
-    delay(200);
+    delay(delayValue);
 }
 
 void getData()
@@ -45,9 +46,12 @@ void getData()
         }
         else
         {
-            bool randomBool = (bool)random(0, 1);
-            Serial.print("Random for " + String(i) + " is " + String(ledQuantity));
-            data[i].hasData = randomBool;
+            bool bufferHasData = (bool) random(2); // Change this to Port value
+            if(bufferHasData)
+                Serial.println("Value for " + String(i) + " has data.");
+            else
+                Serial.println("Value for " + String(i) + " doesn't has data.");
+            data[i].hasData = bufferHasData;
         }
     }
 }
@@ -58,7 +62,7 @@ void applyData()
     {
         if (i >= ledQuantity)
         {
-            Serial.print("Only " + String(ledQuantity) + " values are allowed");
+            Serial.println("Only " + String(ledQuantity) + " values are allowed");
             break;
         }
         else
