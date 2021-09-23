@@ -57,6 +57,8 @@ int main(int argc, char *argv[])
         
     memcpy(info_block, data_ptr, INFO_BLOCK_SIZE);
 
+    sem_init(&info_block->sems.circular_buffer_usage_sem, 1, 1);
+
     detach_memory_info_block(info_block);
 
     return 0;

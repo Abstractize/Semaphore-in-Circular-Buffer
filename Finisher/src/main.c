@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "memory/memory.h"
+#include "data/datatypes.h"
+#include <semaphore.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +16,9 @@ int main(int argc, char *argv[])
         printf("ERROR: couldn't get Block: %s\n", buffer_name);
         return -1;
     }
+
+    initialization_data_t *info_block = attach_memory_info_block(buffer_name, BLOCK_SIZE);
+    sem_destroy(&info_block->sems.circular_buffer_usage_sem);
 
     if (destroy_memory_block(buffer_name))
         printf("Destroyed Block: %s\n", buffer_name);
