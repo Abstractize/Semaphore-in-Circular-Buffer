@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
    for (int i = 0; i < info_block->size; ++i)
    {
       data_t *var = pop_data(&info_block->buffer, buffer_name);
-      /*if (var == NULL)
+      if (var == NULL)
          printf("value %i: not popped\n", i);
       else
-         printf("Reading %i: '%i'\n", i, var->data);*/
+         printf("Reading %i: '%i'\n", i, var->data);
    }
    --info_block->consumers;
    detach_memory_info_block(info_block);
