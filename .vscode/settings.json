@@ -5,6 +5,8 @@
         "data.h": "c",
         "typeinfo": "cpp",
         "memory.h": "c",
-        "datatypes.h": "c"
+        "datatypes.h": "c",
+        "stdio.h": "c",
+        "time.h": "c"
     }
 }

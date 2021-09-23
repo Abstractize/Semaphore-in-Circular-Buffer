@@ -49,7 +49,6 @@ data_t *pop_data(circular_buffer_t *c, char *buffer_name, buffer_sems_t sems)
 
     int i = c->tail;
     data_t *buffer_val = attach_memory_data_block(buffer_name, DATA_BLOCK_SIZE, i + 1);
-    printf("Reading %i: '%i'\n", i, buffer_val->data);
     data_t *data = (data_t *)malloc(sizeof(data_t)); 
     *data = *buffer_val;
     

@@ -4,12 +4,20 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <semaphore.h>
+#include <time.h>
+
 #define BIG_ENOUGH 255
 
 typedef struct
 {
+    int index;
+    time_t current_time;
+    int consumers;
+    int productors;
     int data;
 } data_t;
+
+void print_data(data_t * data, char * instance_name, int instance_id);
 
 typedef struct
 {

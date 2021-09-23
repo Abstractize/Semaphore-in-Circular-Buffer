@@ -25,7 +25,8 @@ int main(int argc, char *argv[])
       printf("ERROR: couldn't get Block: %s\n", buffer_name);
       return -1;
    }
-   ++info_block->consumers;
+   int instance_id = ++info_block->consumers;
+
    printf("Got %s\n", info_block->name);
    for (int i = 0; i < info_block->size; ++i)
    {
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
       if (var == NULL)
          printf("value %i: not popped\n", i);
       else
-         printf("Reading %i: '%i'\n", i, var->data);
+         print_data(var, "Consumer", instance_id);
    }
    --info_block->consumers;
    detach_memory_info_block(info_block);
