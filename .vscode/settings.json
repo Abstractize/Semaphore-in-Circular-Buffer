@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdbool.h": "c",
+        "stdint.h": "c",
+        "data.h": "c",
+        "typeinfo": "cpp",
+        "memory.h": "c",
+        "datatypes.h": "c"
+    }
+}
