@@ -16,7 +16,11 @@ int main(int argc, char *argv[])
         printf("ERROR: couldn't get Block: %s\n", buffer_name);
         return -1;
     }
+    // Arduino Com
 
+    // While not pressed
+    // If has data sends data to led
+    // If Button was pressed
     initialization_data_t *info_block = attach_memory_info_block(buffer_name, BLOCK_SIZE);
     
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);

@@ -11,7 +11,7 @@ Data data[length];
 
 void setup()
 {
-  	//Serial.begin(9600);
+  	Serial.begin(9600);
     for (int i = 0; i < length; i++)
     {
         if (i >= ledQuantity)

@@ -56,6 +56,7 @@ data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name, buffer_s
     if(was_empty)
         sem_post(&sems.circular_buffer_empty);
     sem_post(&sems.circular_buffer_usage_sem);
+    
     return response;
 }
 

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         else if (!strcmp(argv[i], "-t"))
             prod_time = atoi(argv[++i]);
 
-    if (buffer_name == NULL)
+    if (buffer_name == NULL || prod_time <= 0)
     {
         printf("ERROR: couldn't get Block: %s\n", buffer_name);
         return -1;
@@ -35,20 +35,25 @@ int main(int argc, char *argv[])
     }
 
     int instance_id = ++info_block->productors;
+    double lambda = 1 / prod_time;
 
     printf("Got %s in PID %i and instance Productor %i\n", info_block->name, getpid(), instance_id);
 
     while (!info_block->stop)
     {
-        int random_prob = ((rand() % (10000/prod_time)) + 1);
-        double x  = (double) random_prob/10000;
+        int lower_limit = lambda / 2 * 10000;
+        int greater_limit = lambda * 10000;
+
+        int random_prob = (rand() % (lower_limit + greater_limit) + 1);
+
+        double x = (double)random_prob / 10000;
         x = x * prod_time;
         double t = -log(x) * prod_time;
-        
+
         sleep(t);
 
         const int posibilities = 6;
-        const int magic_number = random() %  (posibilities + 1);
+        const int magic_number = random() % (posibilities + 1);
 
         data_t value = {
             .key = magic_number,
@@ -59,7 +64,7 @@ int main(int argc, char *argv[])
             .data = rand() % 32767};
 
         data_t *response = push_data(&info_block->buffer, value, buffer_name, info_block->sems);
-        if(response != NULL)
+        if (response != NULL)
             print_data(response, "Productor", instance_id, t);
         else
             break;

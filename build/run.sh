@@ -16,12 +16,12 @@ echo "Initiator: "
 ./Initiator -n "$name" -s "$size"
 echo ""
 wait
-echo "Productor and Consumer: "
-./Productor -n "$name" -t "$time" &
-sleep 5 && ./Consumer -n "$name" -t "$time"
+#echo "Productor and Consumer: "
+#./Productor -n "$name" -t "$time" &
+#sleep 5 && ./Consumer -n "$name" -t "$time"
 echo ""
 wait
 
-echo "Finisher: "
-./Finisher -n "$name"
-wait
+#echo "Finisher: "
+#./Finisher -n "$name"
+#wait
