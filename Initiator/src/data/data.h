@@ -3,7 +3,7 @@
 
 #include "datatypes.h"
 
-int push_data(circular_buffer_t *c, int data, char *buffer_name);
-int pop_data(circular_buffer_t *c, int *data, char *buffer_name);
+data_t *push_data(circular_buffer_t *c, data_t data, char *buffer_name, buffer_sems_t sems);
+data_t *pop_data(circular_buffer_t *c, char *buffer_name, buffer_sems_t sems);
 
 #endif
