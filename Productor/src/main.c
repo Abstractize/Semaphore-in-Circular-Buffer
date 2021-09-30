@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     }
 
     int instance_id = ++info_block->productors;
-    double lambda = 1 / prod_time;
+    double lambda = 1 / (double)prod_time;
 
     printf("Got %s in PID %i and instance Productor %i\n", info_block->name, getpid(), instance_id);
 
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         int lower_limit = lambda / 2 * 10000;
         int greater_limit = lambda * 10000;
 
-        int random_prob = (rand() % (lower_limit + greater_limit) + 1);
+        int random_prob = (rand() % (greater_limit - lower_limit) + 1) + lower_limit;
 
         double x = (double)random_prob / 10000;
         x = x * prod_time;
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
             .productor_id = instance_id,
             .data = rand() % 32767};
 
-        data_t *response = push_data(&info_block->buffer, value, buffer_name, info_block->sems);
+        data_t *response = push_data(&info_block->buffer, value, buffer_name, &info_block->sems);
         if (response != NULL)
             print_data(response, "Productor", instance_id, t);
         else

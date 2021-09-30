@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         .buffer = {
             .head = 0,
             .tail = 0,
-            .maxlen = size + 1},
+            .maxlen = size},
         .consumers = 0,
         .productors = 0
     };
