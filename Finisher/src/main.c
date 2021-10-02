@@ -37,9 +37,6 @@ int main(int argc, char *argv[])
     printf("\n");
     printf("--------------------------------------\n");
     printf("Message On buffer: %s", abs(info_block->buffer.head - info_block->buffer.head));
-    printf("Message: %i\n", data->data);
-    printf("Number of Consumers: %i\n", data->consumers);
-    printf("Number of Productors: %i\n", data->productors);
     printf("--------------------------------------\n");
     printf("\n");
 
