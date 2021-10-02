@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <semaphore.h>
+#include <stdbool.h>
 #include "memory/memory.h"
 #include "data/datatypes.h"
+
+#define BLOCK_SIZE sizeof(initialization_data_t)
 
 int main(int argc, char *argv[])
 {
@@ -22,11 +25,18 @@ int main(int argc, char *argv[])
     // If has data sends data to led
     // If Button was pressed
     initialization_data_t *info_block = attach_memory_info_block(buffer_name, BLOCK_SIZE);
-    
+    if (info_block == NULL)
+    {
+        printf("ERROR: couldn't get Block: %s\n", buffer_name);
+        return -1;
+    }
+
+    info_block->stop = true;
+
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);
     sem_destroy(&info_block->sems.circular_buffer_empty);
     sem_destroy(&info_block->sems.circular_buffer_full);
-    
+
     detach_memory_info_block(info_block);
 
     if (destroy_memory_block(buffer_name))

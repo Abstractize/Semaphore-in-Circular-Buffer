@@ -28,6 +28,15 @@ typedef struct
     int maxlen;
 } circular_buffer_t;
 
+typedef struct
+{
+    int messages;
+    double wait_time;
+    double stop_time;
+    double total_time;
+} stats_t;
+
+void print_stats(stats_t stats, char * instance_name, int instance_id);
 
 typedef struct
 {

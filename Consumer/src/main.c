@@ -36,6 +36,14 @@ int main(int argc, char *argv[])
    const int p_id = getpid();
    printf("Got %s in PID %i and instance Consumer %i\n", info_block->name, p_id, instance_id);
 
+   stats_t stats_block = {
+            .messages = 0,
+            .wait_time = 0,
+            .stop_time = 0,
+            .total_time = 0};
+
+   clock_t begin_run = clock();
+
    int key = 8;
    double lambda = 1 / (double)prod_time;
 
@@ -51,16 +59,25 @@ int main(int argc, char *argv[])
       double t = -log(x) * prod_time;
 
       sleep(t);
-      data_t *var = pop_data(&info_block->buffer, buffer_name, &info_block->sems);
-      if (var != NULL)
+      stats_block.wait_time += t;
+
+      data_t *var = pop_data(&info_block->buffer, buffer_name, &info_block->sems, &stats_block);
+      if (var != NULL){
          print_data(var, "Consumer", instance_id, t);
+         stats_block.messages++;
+      }
       else
          printf("Could not POP value\n");
       key = var->key;
    }
+   clock_t end_run = clock();
+
+   stats_block.total_time += (double)(end_run - begin_run);
 
    --info_block->consumers;
    detach_memory_info_block(info_block);
+
+   print_stats(stats_block, "Consumer", instance_id);
 
    return 0;
 }

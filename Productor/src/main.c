@@ -39,6 +39,14 @@ int main(int argc, char *argv[])
 
     printf("Got %s in PID %i and instance Productor %i\n", info_block->name, getpid(), instance_id);
 
+    stats_t stats_block = {
+            .messages = 0,
+            .wait_time = 0,
+            .stop_time = 0,
+            .total_time = 0};
+    
+    clock_t begin_run = clock();
+
     while (!info_block->stop)
     {
         int lower_limit = lambda / 2 * 10000;
@@ -51,6 +59,7 @@ int main(int argc, char *argv[])
         double t = -log(x) * prod_time;
 
         sleep(t);
+        stats_block.wait_time += t;
 
         const int posibilities = 6;
         const int magic_number = random() % (posibilities + 1);
@@ -63,15 +72,22 @@ int main(int argc, char *argv[])
             .productor_id = instance_id,
             .data = rand() % 32767};
 
-        data_t *response = push_data(&info_block->buffer, value, buffer_name, &info_block->sems);
-        if (response != NULL)
+        data_t *response = push_data(&info_block->buffer, value, buffer_name, &info_block->sems, &stats_block);
+        if (response != NULL){
             print_data(response, "Productor", instance_id, t);
+            stats_block.messages++;
+        }
         else
             break;
     }
+    clock_t end_run = clock();
+
+    stats_block.total_time += (double)(end_run - begin_run);
 
     --info_block->productors;
     detach_memory_info_block(info_block);
+
+    print_stats(stats_block, "Productor", instance_id);
 
     return 0;
 }
