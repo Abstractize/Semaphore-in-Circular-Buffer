@@ -35,9 +35,13 @@ int main(int argc, char *argv[])
     info_block->stop = true;
 
     printf("\n");
+    printf("\033[0;32m");
     printf("--------------------------------------\n");
-    printf("Message On buffer: %s", abs(info_block->buffer.head - info_block->buffer.head));
+    printf("Message On buffer: %i", abs(info_block->buffer.head - info_block->buffer.head));
+    printf("Consumers: %i", abs(info_block->consumers));
+    printf("Productors: %i", abs(info_block->productors));
     printf("--------------------------------------\n");
+    printf("\033[0m");
     printf("\n");
 
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);
