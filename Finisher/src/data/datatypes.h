@@ -19,6 +19,14 @@ typedef struct
     int data;
 } data_t;
 
+/**
+ * @brief prints block data
+ * 
+ * @param data 
+ * @param instance_name 
+ * @param instance_id 
+ * @param t 
+ */
 void print_data(data_t * data, char * instance_name, int instance_id, double t);
 
 typedef struct
@@ -28,6 +36,22 @@ typedef struct
     int maxlen;
 } circular_buffer_t;
 
+typedef struct
+{
+    int messages;
+    double wait_time;
+    double stop_time;
+    double total_time;
+} stats_t;
+
+/**
+ * @brief print stats
+ * 
+ * @param stats 
+ * @param instance_name 
+ * @param instance_id 
+ */
+void print_stats(stats_t stats, char * instance_name, int instance_id);
 
 typedef struct
 {
@@ -35,6 +59,7 @@ typedef struct
     sem_t circular_buffer_full;
     sem_t circular_buffer_empty;
 } buffer_sems_t;
+
 typedef struct
 {
     char name[BIG_ENOUGH];

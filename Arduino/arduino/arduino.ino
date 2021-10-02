@@ -26,6 +26,7 @@ void setup()
     {
       data[i].pin = i;
       pinMode(i, OUTPUT);
+      digitalWrite(i, LOW);
     }
   }
   pinMode(10, INPUT);

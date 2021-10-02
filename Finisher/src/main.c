@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "memory/memory.h"
 #include "data/datatypes.h"
-#include "data/comm.c"
+#include "data/comm.h"
 
 #define BLOCK_SIZE sizeof(initialization_data_t)
 
@@ -32,10 +32,16 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    while (!info_block->stop){
-        writePort("COM7", info_block->buffer.head, info_block->buffer.tail);
-        readPort("COM7", &info_block);
-    }
+    info_block->stop = true;
+
+    printf("\n");
+    printf("--------------------------------------\n");
+    printf("Message On buffer: %s", abs(info_block->buffer.head - info_block->buffer.head));
+    printf("Message: %i\n", data->data);
+    printf("Number of Consumers: %i\n", data->consumers);
+    printf("Number of Productors: %i\n", data->productors);
+    printf("--------------------------------------\n");
+    printf("\n");
 
     sem_destroy(&info_block->sems.circular_buffer_usage_sem);
     sem_destroy(&info_block->sems.circular_buffer_empty);
@@ -43,8 +49,10 @@ int main(int argc, char *argv[])
 
     detach_memory_info_block(info_block);
 
-    if (destroy_memory_block(buffer_name))
+    if (destroy_memory_block(buffer_name)){
         printf("Destroyed Block: %s\n", buffer_name);
+    }
+        
     else
         printf("Couldn't destroy Block: %s\n", buffer_name);
     return 0;
